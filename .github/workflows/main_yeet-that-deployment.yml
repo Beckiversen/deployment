@@ -33,6 +33,15 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+     
+      - name: Update database
+        env: 
+            dbcs: ${{ secrets.DBCS }}
+        run: |
+          dotnet tool install --global dotnet-ef
+          cd server
+          dotnet tool restore
+          dotnet ef database update
 
   deploy:
     runs-on: windows-latest
