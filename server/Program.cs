@@ -97,28 +97,34 @@ app.Use(async (context, next) =>
 });
 
 // Herunder alle endpoints i API'en
-app.MapGet("/api/tasks", (DataService service) =>
+app.MapGet("/api/questions", (DataService service) =>
 {
-    return service.GetTasks();
+    return service.GetQuestions();
 });
 
-app.MapGet("/api/tasks/{id}", (DataService service, int id) =>
+app.MapGet("/api/questions/{id}", (DataService service, int id) =>
 {
-    return service.GetTaskById(id);
+    return service.GetQuestionById(id);
 });
 
-app.MapPost("/api/tasks/", (PostTaskData data, DataService service) =>
+app.MapGet("/api/category", (DataService service) =>
 {
-    return service.CreateTask(data.text, data.done, data.userId);
+    return service.GetCategory();
 });
 
-app.MapPut("/api/tasks/{id}", (int id, PutTaskData data, DataService service) => {
-    return service.UpdateTask(id, data.text, data.done);
+app.MapPost("/api/question/", (QuestionData data, DataService service) =>
+{
+    return service.CreateQuestion(data.date, data.headline, data.question, data.name);
 });
 
 app.MapGet("/api/users", (DataService service) =>
 {
     return service.GetUsers();
+});
+
+app.MapGet("/api/users/{id}", (DataService service, int id) =>
+{
+    return service.GetUserById(id);
 });
 
 app.MapPost("/api/users/", (UserData data, DataService service) =>
@@ -129,7 +135,5 @@ app.MapPost("/api/users/", (UserData data, DataService service) =>
 app.Run();
 
 // Records til input data (svarende til input JSON)
-record PostTaskData(string text, bool done, int userId);
-
-record PutTaskData(string text, bool done);
+record QuestionData(DateTime date, string headline, string question, string name);
 record UserData(string name);
