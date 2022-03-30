@@ -37,7 +37,7 @@ Console.WriteLine($"WebRootPath: {builder.Environment.WebRootPath}");
 // Tilføj DbContext factory som service.
 // Det gør at man kan få TodoContext ind via dependecy injection - fx 
 // i DataService (smart!)
-builder.Services.AddDbContext<TodoContext>(options =>
+builder.Services.AddDbContext<ProjektContext>(options =>
     options.UseSqlServer(builder.Configuration["dbcs"]));
 
 // Kan vise flotte fejlbeskeder i browseren hvis der kommer fejl fra databasen
