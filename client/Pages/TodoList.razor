@@ -2,6 +2,9 @@
 
 @using TodoListBlazor.Data;
 @inject TodoListService todoService
+@using Model;
+@inject ServiceData questionService
+
 
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
@@ -10,27 +13,36 @@
 
 <h1>The Todo List</h1>
 
-@if (tasks == null)
+@if (questions == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <ol>
-        @foreach (var task in tasks)
+        @foreach (var quest in questions)
         {
             <li>
-                <TodoTask Task=@task></TodoTask>
+                <table>
+                    <tr>
+                        <td>@quest.Question</td>
+                        <td>@quest.Answers</td>
+                        <td>@quest.Date</td>
+                    </tr>
+                </table>
             </li>
         }
     </ol>
 }
 
 @code {
-    private TaskData[]? tasks;
+    private Questions[]? questions;
 
     protected override async Task OnInitializedAsync()
     {
-        tasks = await todoService.GetTaskData();
-    }    
+        questions = await questionService.GetTaskData();
+    }
+
+
+
 }
