@@ -18,15 +18,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
     <ProjectReference Include="..\client\TodoListBlazor.csproj">
-   </ProjectReference>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Model\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Model\" />
-  </ItemGroup>
 </Project>

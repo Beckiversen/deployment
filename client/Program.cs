@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components.Web;
+﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using TodoListBlazor;
@@ -11,6 +11,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSingleton(sp => new HttpClient { 
   BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
 });
-builder.Services.AddSingleton<TodoListService>();
+builder.Services.AddScoped<ServiceData>();
 
 await builder.Build().RunAsync();
