@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Model;
 
 namespace Data
@@ -24,10 +24,10 @@ namespace Data
             modelBuilder.Entity<TodoTask>().ToTable("Tasks");
         }*/
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Et eksempel på at man selv kan styre hvad en tabel skal hedde.
-            modelBuilder.Entity<Questions>().ToTable("Tasks");
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    // Et eksempel på at man selv kan styre hvad en tabel skal hedde.
+        //    modelBuilder.Entity<Questions>().ToTable("Tasks");
+        //}
     }
 }
