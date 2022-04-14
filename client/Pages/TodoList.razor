@@ -40,9 +40,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        questions = await questionService.GetTaskData();
+        questions = await questionService.GetQuestionData();
     }
-
-
-
 }

@@ -74,7 +74,7 @@ using (var scope = app.Services.CreateScope())
 {
     // Med scope kan man hente en service.
     var dataService = scope.ServiceProvider.GetRequiredService<DataService>();
-    dataService.SeedData(); // Fylder data på hvis databasen er tom.
+    //dataService.SeedData(); // Fylder data på hvis databasen er tom.
 }
 
 // Sæt Swagger og alt det andet halløj op
