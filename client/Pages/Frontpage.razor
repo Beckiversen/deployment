@@ -11,14 +11,16 @@
 
 
 @if (questions == null)
-    {
+{
     <p><em>Loading...</em></p>
-    }
-    else
-    {
+}
+else
+{
+
+    <a href="/CreateQuestion") class="btn btn-primary">Create question</a>
     @foreach (var quest in questions)
-        {
-            
+    {
+
         <div class="card">
             <div class="card-header">
                 <p class="card-text">-- @quest.User.Name -- @quest.Category.Name</p>
@@ -26,18 +28,18 @@
             <div class="card-body">
                 <h5 class="card-title">@quest.Headline</h5>
                 <p class="card-text">@quest.Question</p>
-              
-                <a href=@string.Format("{0}",quest.QuestionsId) class="btn btn-primary">Write an answer</a>
+
+                <a href=@string.Format("{0}",quest.QuestionsId) class="btn btn-primary">See question</a>
             </div>
         </div>
-        }
     }
-        @code {
+}
+@code {
 
-private Questions[] questions;
+    private Questions[] questions;
 
     protected override async Task OnInitializedAsync()
     {
         questions = await questionService.GetQuestionData();
     }
-        }
+}

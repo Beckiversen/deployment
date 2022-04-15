@@ -1,0 +1,36 @@
+﻿@page "/CreateQuestion"
+
+@using TodoListBlazor.Data;
+@inject ServiceData questionService
+
+@using Model;
+
+
+<div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"></span>
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+<div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"></span>
+    <input type="text" class="form-control" placeholder="Category" aria-label="Category" aria-describedby="addon-wrapping">
+</div>
+<div class="input-group input-group-lg">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Headline</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<div class="form-floating">
+    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <label for="floatingTextarea2">What's your question?</label>
+</div>
+
+<a href="#" class="btn btn-primary">Ask question</a>
+@code {
+
+    @*private Questions? questions;
+    protected override async Task OnInitializedAsync()
+    {
+        questions = await questionService.PostQuestionData();
+    }
+
+    private record questiondata(User user, string headline, string question, Category Category);*@
+}
