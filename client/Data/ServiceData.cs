@@ -21,7 +21,7 @@ namespace TodoListBlazor.Data
 
         public async Task<Questions[]> GetQuestionData()
         {
-            string url = $"{baseAPI}api/questions/";
+            string url = $"{baseAPI}questions/";
             return await http.GetFromJsonAsync<Questions[]>(url);
         }
 

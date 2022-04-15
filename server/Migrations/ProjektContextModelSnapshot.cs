@@ -116,7 +116,7 @@ namespace TodoApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Model.User", b =>

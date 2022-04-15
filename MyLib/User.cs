@@ -11,6 +11,11 @@ namespace Model
 		{
 			this.Name = name;
 		}
+
+        public User()
+        {
+			
+        }
 	
 	}
 }

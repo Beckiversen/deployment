@@ -22,6 +22,11 @@ namespace Model
 			this.Rating = rating;
 		}
 
+        public Questions()
+        {
+			
+        }
+
 		public long QuestionsId { get; set; }
 		public DateTime Date { get; set; }
 		public string Headline { get; set; }

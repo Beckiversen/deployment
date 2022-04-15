@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TodoApi.Migrations
 {
-    public partial class hsysf : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace TodoApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tasks",
+                name: "Questions",
                 columns: table => new
                 {
                     QuestionsId = table.Column<long>(type: "bigint", nullable: false)
@@ -49,9 +49,9 @@ namespace TodoApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tasks", x => x.QuestionsId);
+                    table.PrimaryKey("PK_Questions", x => x.QuestionsId);
                     table.ForeignKey(
-                        name: "FK_Tasks_User_UserId",
+                        name: "FK_Questions_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "UserId");
@@ -73,9 +73,9 @@ namespace TodoApi.Migrations
                 {
                     table.PrimaryKey("PK_Answers", x => x.AnswersId);
                     table.ForeignKey(
-                        name: "FK_Answers_Tasks_QuestionsId",
+                        name: "FK_Answers_Questions_QuestionsId",
                         column: x => x.QuestionsId,
-                        principalTable: "Tasks",
+                        principalTable: "Questions",
                         principalColumn: "QuestionsId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -102,9 +102,9 @@ namespace TodoApi.Migrations
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryQuestions_Tasks_QuestionsId",
+                        name: "FK_CategoryQuestions_Questions_QuestionsId",
                         column: x => x.QuestionsId,
-                        principalTable: "Tasks",
+                        principalTable: "Questions",
                         principalColumn: "QuestionsId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -125,8 +125,8 @@ namespace TodoApi.Migrations
                 column: "QuestionsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tasks_UserId",
-                table: "Tasks",
+                name: "IX_Questions_UserId",
+                table: "Questions",
                 column: "UserId");
         }
 
@@ -142,7 +142,7 @@ namespace TodoApi.Migrations
                 name: "Category");
 
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "User");

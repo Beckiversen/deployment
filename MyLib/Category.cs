@@ -3,10 +3,15 @@
 namespace Model
 {
 	public class Category
-	{
-		public Category(string name)
+	{   
+        public Category(string name)
 		{
 			this.Name = name;
+		}
+
+		public Category()
+		{
+
 		}
 
 		public long CategoryId { get; set; }

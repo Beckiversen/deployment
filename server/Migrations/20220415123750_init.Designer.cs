@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(ProjektContext))]
-    [Migration("20220330084150_hsysf")]
-    partial class hsysf
+    [Migration("20220415123750_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,7 +118,7 @@ namespace TodoApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Model.User", b =>
