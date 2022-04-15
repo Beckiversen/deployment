@@ -45,11 +45,17 @@ namespace TodoApi.Migrations
                     Headline = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: true)
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Questions", x => x.QuestionsId);
+                    table.ForeignKey(
+                        name: "FK_Questions_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "CategoryId");
                     table.ForeignKey(
                         name: "FK_Questions_User_UserId",
                         column: x => x.UserId,
@@ -67,7 +73,7 @@ namespace TodoApi.Migrations
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
-                    QuestionsId = table.Column<long>(type: "bigint", nullable: false)
+                    QuestionsId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,37 +82,12 @@ namespace TodoApi.Migrations
                         name: "FK_Answers_Questions_QuestionsId",
                         column: x => x.QuestionsId,
                         principalTable: "Questions",
-                        principalColumn: "QuestionsId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "QuestionsId");
                     table.ForeignKey(
                         name: "FK_Answers_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "UserId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CategoryQuestions",
-                columns: table => new
-                {
-                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    QuestionsId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryQuestions", x => new { x.CategoryId, x.QuestionsId });
-                    table.ForeignKey(
-                        name: "FK_CategoryQuestions_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryQuestions_Questions_QuestionsId",
-                        column: x => x.QuestionsId,
-                        principalTable: "Questions",
-                        principalColumn: "QuestionsId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -120,9 +101,9 @@ namespace TodoApi.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryQuestions_QuestionsId",
-                table: "CategoryQuestions",
-                column: "QuestionsId");
+                name: "IX_Questions_CategoryId",
+                table: "Questions",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_UserId",
@@ -136,13 +117,10 @@ namespace TodoApi.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "CategoryQuestions");
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "User");

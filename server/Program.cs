@@ -109,6 +109,16 @@ app.MapGet("/api/questions/{id}", (DataService service, int id) =>
     return service.GetQuestionById(id);
 });
 
+app.MapGet("/api/answers/{id}", (DataService service, int id) =>
+{
+    return service.GetAnswersById(id);
+});
+
+app.MapGet("/api/answers/", (DataService service, int id) =>
+{
+    return service.GetAnswers();
+});
+
 app.MapGet("/api/category", (DataService service) =>
 {
     return service.GetCategory();
@@ -116,7 +126,7 @@ app.MapGet("/api/category", (DataService service) =>
 
 app.MapPost("/api/question/", (QuestionData data, DataService service) =>
 {
-    return service.CreateQuestion(data.date, data.headline, data.question, data.name);
+    return service.CreateQuestion(data.date, data.headline, data.question, data.name, data.categoryId);
 });
 
 app.MapGet("/api/users", (DataService service) =>
@@ -137,5 +147,5 @@ app.MapPost("/api/users/", (UserData data, DataService service) =>
 app.Run();
 
 // Records til input data (svarende til input JSON)
-record QuestionData(DateTime date, string headline, string question, string name);
+record QuestionData(DateTime date, string headline, string question, string name, long categoryId);
 record UserData(string name);

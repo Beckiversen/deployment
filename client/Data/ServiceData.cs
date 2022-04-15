@@ -16,13 +16,19 @@ namespace TodoListBlazor.Data
         {
             this.http = http;
             this.configuration = configuration;
-            this.baseAPI = configuration["base_api"];
+            baseAPI = configuration["base_api"];
         }
 
         public async Task<Questions[]> GetQuestionData()
         {
             string url = $"{baseAPI}questions/";
             return await http.GetFromJsonAsync<Questions[]>(url);
+        }
+
+        public async Task<Questions> GetQuestionDataSingle(int id)
+        {
+            string url = $"{baseAPI}questions/{id}";
+            return await http.GetFromJsonAsync<Questions>(url);
         }
 
     }

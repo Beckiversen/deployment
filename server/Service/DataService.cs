@@ -33,11 +33,10 @@ public class DataService
             category = new Category("Alt muligt");
             db.Category.Add(category);
         }
-
         Questions questions = db.Questions.FirstOrDefault()!;
         if (questions == null)
         {
-            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user);
+            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user, category);
             var answer = new Answers(DateTime.Now, "Det var træls", 1, user);
             question.Answers.Add(answer);
             question.Answers.Add(new Answers(DateTime.Now, "Så må du øve dig", 4, user));
@@ -52,7 +51,9 @@ public class DataService
     public List<Questions> GetQuestions()
     {
         return db.Questions
-            /*.Include(task => task.User)*/
+            .Include(category => category.Category)
+            .Include(user => user.User)
+            .Include(answer => answer.Answers)
             .ToList();
     }
 
@@ -63,14 +64,17 @@ public class DataService
             .Questions
             .Where(question => question.QuestionsId == id)
             .Include(t => t.User)
+            .Include(i => i.Answers)
+            .Include(y => y.Category)
             .First();
         return question;
     }
 
-    public string CreateQuestion(DateTime date, string headline, string question, string name)
+    public string CreateQuestion(DateTime date, string headline, string question, string name, long categoryid)
     {
         User user = db.User.Where(user => user.Name == name).First();
-        Questions questions = new Questions(DateTime.Now, headline, question, 0, user);
+        Category category = db.Category.Where(c => c.CategoryId == categoryid).First();
+        Questions questions = new Questions(DateTime.Now, headline, question, 0, user, category);
         db.Questions.Add(questions);
         db.SaveChanges();
         return JsonSerializer.Serialize(
@@ -91,6 +95,11 @@ public class DataService
             .Include(t => t.Answer)
             .First();
         return answer;
+    }
+
+    public DbSet<Answers> GetAnswers()
+    {
+        return db.Answers;
     }
 
     public DbSet<User> GetUsers()

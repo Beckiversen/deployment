@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/home"
 
 @using TodoListBlazor.Data;
 @inject ServiceData questionService
@@ -26,7 +26,7 @@ else
                 <table>
                     <tr>
                         <td>@quest.Question</td>
-                        <td>@quest.Answers</td>
+                        <td>@quest.Rating</td>
                         <td>@quest.Date</td>
                     </tr>
                 </table>
@@ -37,6 +37,8 @@ else
 
 @code {
     private Questions[]? questions;
+
+    
 
     protected override async Task OnInitializedAsync()
     {

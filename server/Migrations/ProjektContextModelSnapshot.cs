@@ -22,21 +22,6 @@ namespace TodoApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CategoryQuestions", b =>
-                {
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("QuestionsId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("CategoryId", "QuestionsId");
-
-                    b.HasIndex("QuestionsId");
-
-                    b.ToTable("CategoryQuestions");
-                });
-
             modelBuilder.Entity("Model.Answers", b =>
                 {
                     b.Property<long>("AnswersId")
@@ -52,7 +37,7 @@ namespace TodoApi.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("QuestionsId")
+                    b.Property<long?>("QuestionsId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Rating")
@@ -95,6 +80,9 @@ namespace TodoApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("QuestionsId"), 1L, 1);
 
+                    b.Property<long?>("CategoryId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -113,6 +101,8 @@ namespace TodoApi.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("QuestionsId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -136,28 +126,11 @@ namespace TodoApi.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("CategoryQuestions", b =>
-                {
-                    b.HasOne("Model.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Model.Questions", null)
-                        .WithMany()
-                        .HasForeignKey("QuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Model.Answers", b =>
                 {
                     b.HasOne("Model.Questions", "Questions")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionsId");
 
                     b.HasOne("Model.User", "User")
                         .WithMany()
@@ -170,11 +143,22 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("Model.Questions", b =>
                 {
+                    b.HasOne("Model.Category", "Category")
+                        .WithMany("Questions")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
+                    b.Navigation("Category");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Model.Category", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Model.Questions", b =>
