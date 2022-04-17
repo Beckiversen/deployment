@@ -31,15 +31,15 @@ namespace TodoListBlazor.Data
             return await http.GetFromJsonAsync<Questions>(url);
         }
 
-        //public async Task<Questions> PostQuestionData(int id)
-        //{
-        //    string url = $"{baseAPI}question/{id}";
-        //    return await http.postFromJsonAsync<Questions>(url, postdata);
-        //}
+        public async void PostQuestionData(Questions data)
+        {
+            PostQuestion postQuestion = new(data.Date, data.Headline, data.Question, data.User.Name, data.Category.Name);
+            string url = $"{baseAPI}question/";
+            await http.PostAsJsonAsync(url, postQuestion);
+        }
 
-
-        //private record postdata(int id, string headline, )
-
+        private record PostQuestion(DateTime date, string headline, string question, string name, string category);
+       
     }
 
 

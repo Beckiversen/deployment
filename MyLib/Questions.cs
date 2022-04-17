@@ -14,6 +14,15 @@ namespace Model
 			this.User = user;
 			this.Category = category;
 		}
+		public Questions(DateTime date, string headline, string question, User user, Category category)
+		{
+			this.Date = date;
+			this.Headline = headline;
+			this.Question = question;
+			
+			this.User = user;
+			this.Category = category;
+		}
 
 		public Questions(DateTime date, string headline, string question, int rating)
 		{

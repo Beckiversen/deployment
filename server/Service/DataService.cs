@@ -70,11 +70,11 @@ public class DataService
         return question;
     }
 
-    public string CreateQuestion(DateTime date, string headline, string question, string name, long categoryid)
+    public string CreateQuestion(DateTime date, string headline, string question, string name, string category, long categoryid)
     {
         User user = db.User.Where(user => user.Name == name).First();
-        Category category = db.Category.Where(c => c.CategoryId == categoryid).First();
-        Questions questions = new Questions(DateTime.Now, headline, question, 0, user, category);
+        Category cat = db.Category.Where(c => c.CategoryId == categoryid).First();
+        Questions questions = new Questions(DateTime.Now, headline, question, 0, user, cat);
         db.Questions.Add(questions);
         db.SaveChanges();
         return JsonSerializer.Serialize(
