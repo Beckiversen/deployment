@@ -53,8 +53,7 @@ namespace Model
 		public string Question { get; set; }
 		public int Rating { get; set; }
 		public User? User { get; set; } = new();
-
-		public Category? Category { get; set; }
+		public Category? Category { get; set; } = new();
 
 
         public List<Answers> Answers { get; set; } = new List<Answers>();
