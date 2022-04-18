@@ -36,7 +36,7 @@ public class DataService
         Questions questions = db.Questions.FirstOrDefault()!;
         if (questions == null)
         {
-            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user);
+            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user, category);
             var answer = new Answers(DateTime.Now, "Det var træls", 1, user);
             question.Answers.Add(answer);
             question.Answers.Add(new Answers(DateTime.Now, "Så må du øve dig", 4, user));
