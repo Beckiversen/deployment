@@ -23,25 +23,23 @@
     <label for="floatingTextarea2">What's your question?</label>
 </div>
 
-<a href="#"  class="btn btn-primary">Ask question</a>
+<a href="#" onclick="@PostQuestion" class="btn btn-primary">Ask question</a>
 @code {
 
 
-
-
-    private Questions[]? questions;
+    private Questions? questions = new();
     private Category? category;
 
-  
+    protected override void OnInitialized()
+    {
+        questions.User = new();
+        questions.Category = new();
+    }
+
     private async void PostQuestion(Questions q)
     {
         Questions newQuestion = new(q.Date, q.Headline, q.Question, q.User, q.Category);
         questionService.PostQuestionData(newQuestion);
-        await OnInitializedAsync();
-
+       
     }
-
-
-    
-    
 }

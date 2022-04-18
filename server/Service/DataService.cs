@@ -36,7 +36,7 @@ public class DataService
         Questions questions = db.Questions.FirstOrDefault()!;
         if (questions == null)
         {
-            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user, category);
+            var question = new Questions(DateTime.Now, "Hjælp mig", "Jeg kan ikke finde ud af at kode", 21, user);
             var answer = new Answers(DateTime.Now, "Det var træls", 1, user);
             question.Answers.Add(answer);
             question.Answers.Add(new Answers(DateTime.Now, "Så må du øve dig", 4, user));
@@ -70,11 +70,10 @@ public class DataService
         return question;
     }
 
-    public string CreateQuestion(DateTime date, string headline, string question, string name, string category, long categoryid)
+    public string CreateQuestion(DateTime date, string headline, string question, string name)
     {
-        User user = db.User.Where(user => user.Name == name).First();
-        Category cat = db.Category.Where(c => c.CategoryId == categoryid).First();
-        Questions questions = new Questions(DateTime.Now, headline, question, 0, user, cat);
+        User user = db.User.Where(user => user.Name == name).FirstOrDefault();
+        Questions questions = new Questions(DateTime.Now, headline, question, 0, user);
         db.Questions.Add(questions);
         db.SaveChanges();
         return JsonSerializer.Serialize(
