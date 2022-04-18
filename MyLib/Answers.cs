@@ -29,7 +29,7 @@ namespace Model
 		public DateTime Date { get; set; }
 		public string Answer { get; set; }
 		public int Rating { get; set; }
-		public User? User { get; set; }
-		public Questions? Questions { get; set; }
+		public User? User { get; set; } = new();
+		
 	}
 }

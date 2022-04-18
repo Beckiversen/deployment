@@ -89,6 +89,22 @@ public class DataService
         );
     }
 
+
+    public string CreateAnswers(int id, DateTime date, string answer, int rating, string name)
+    {
+        User user = db.User.Where(user => user.Name == name).FirstOrDefault()!;
+        if (user != null)
+            db.User.Add(user);
+
+        Questions question = db.Questions.Where(question => question.QuestionsId == id).FirstOrDefault()!;
+        Answers answers = new Answers(date, answer, 0, user);
+        question.Answers.Add(answers);
+        db.SaveChanges();
+        return JsonSerializer.Serialize(
+            new { msg = "New answer created", newAnswers = answers }
+        );
+    }
+
     public DbSet<Category> GetCategory()
     {
         return db.Category;

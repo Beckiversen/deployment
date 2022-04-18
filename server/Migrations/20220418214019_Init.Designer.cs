@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(ProjektContext))]
-    [Migration("20220418210226_Init")]
+    [Migration("20220418214019_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,15 +130,13 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("Model.Answers", b =>
                 {
-                    b.HasOne("Model.Questions", "Questions")
+                    b.HasOne("Model.Questions", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionsId");
 
                     b.HasOne("Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Questions");
 
                     b.Navigation("User");
                 });

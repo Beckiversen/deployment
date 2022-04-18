@@ -128,15 +128,13 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("Model.Answers", b =>
                 {
-                    b.HasOne("Model.Questions", "Questions")
+                    b.HasOne("Model.Questions", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionsId");
 
                     b.HasOne("Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Questions");
 
                     b.Navigation("User");
                 });

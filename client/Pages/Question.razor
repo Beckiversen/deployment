@@ -13,42 +13,42 @@
 }
 else
 {
-    <div class="card w-75">
-        <div class="card-body">
-            <h5 class="card-title">@questions.Headline</h5>
-            <p class="card-text">@questions.Question</p>
-            <p class="card-text">@questions.User.Name</p>
-            <a href="#" class="btn btn-primary">Write an answer</a>
+        <div class="card w-75">
+            <div class="card-body">
+                <h5 class="card-title">@questions.Headline</h5>
+                <p class="card-text">@questions.Question</p>
+                <p class="card-text">@questions.User.Name</p>
+                <a href=@string.Format("/Questions/{0}/CreateAnswer", questions.QuestionsId) class="btn btn-primary">Create answer</a>
+            </div>
         </div>
-    </div>
 
-    <div class="card w-75">
-        <div class="card-body">
-            <h5 class="card-title">Best answer</h5>
-            @foreach (var answer in questions.Answers)
-            {
-        <div class="card-body">
-            <p class="card-text">@answer.Answer</p>
-            <p class="card-text">@answer.User.Name</p>
-            <a href="#" class="btn btn-primary">See answer</a>
+        <div class="card w-75">
+            <div class="card-body">
+                <h5 class="card-title">Best answer</h5>
+                @foreach (var answer in questions.Answers)
+                {
+                    <div class="card-body">
+                        <p class="card-text">@answer.Answer</p>
+                        <p class="card-text">@answer.User.Name</p>
+                        <a href="#" class="btn btn-primary">See answer</a>
+                    </div>
+
+                }
+
+            </div>
         </div>
-                
-            }
-
-        </div>
-    </div>
 
 
-}
+    }
 
-@code {
-    [Parameter]
-    public int id { get; set; }
+    @code {
+        [Parameter]
+        public int id { get; set; }
 
-    private Questions questions;
+private Questions questions;
 
     protected override async Task OnInitializedAsync()
     {
         questions = await questionService.GetQuestionDataSingle(id);
     }
-}
+    }

@@ -1,0 +1,46 @@
+﻿@page "/Question/{id:int}/CreateAnswer"
+
+
+@using TodoListBlazor.Data;
+@inject ServiceData questionService
+
+@using Model;
+
+@if (questions == null)
+    {
+    <p><em>Loading...</em></p>
+    }
+    else
+    {
+
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping"></span>
+        <input type="text" class="form-control" @bind-value="@questions.User.Name" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text" id="addon-wrapping"></span>
+        <input type="text" class="form-control" @bind-value="@questions.Category.Name" placeholder="Category" aria-label="Category" aria-describedby="addon-wrapping">
+    </div>
+    <div class="input-group input-group-lg">
+        <span class="input-group-text" id="inputGroup-sizing-lg">Headline</span>
+        <input type="text" @bind-value="@questions.Headline" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    </div>
+    <div class="form-floating">
+        <input class="form-control" @bind-value="@questions.Question" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></input>
+        <label for="floatingTextarea2">What's your question?</label>
+    </div>
+
+    <a href="#" @onclick="PostQuestion" class="btn btn-primary">Ask question</a>
+
+    }
+    @code {
+
+
+private Questions? questions { get; set; } = new Questions();
+    [Parameter]
+    public int id { get; set; }
+    private void PostQuestion()
+    {
+        questionService.PostQuestionData(questions);
+    }
+    }
