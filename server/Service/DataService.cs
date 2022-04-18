@@ -70,10 +70,26 @@ public class DataService
         return question;
     }
 
-    public string CreateQuestion(DateTime date, string headline, string question, string name)
+    public string CreateQuestion(DateTime date, string headline, string question, string name, string category)
     {
-        User user = db.User.Where(user => user.Name == name).FirstOrDefault();
-        Questions questions = new Questions(DateTime.Now, headline, question, 0, user);
+        User user = db.User.Where(user => user.Name == name).FirstOrDefault()!;
+        if (user == null)
+            return JsonSerializer.Serialize(new { msg = "user not found", newUser = name });
+        else
+        {
+            db.User.Add(user);
+        }
+
+
+        Category oldCategory = db.Category.Where(c => c.Name == category).FirstOrDefault()!;
+        if (oldCategory == null)
+            return JsonSerializer.Serialize(new { msg = "category not found", newCategory = category });
+        else
+        {
+            db.Category.Add(oldCategory);
+        }
+
+        Questions questions = new Questions(DateTime.Now, headline, question, 0, user, oldCategory);
         db.Questions.Add(questions);
         db.SaveChanges();
         return JsonSerializer.Serialize(

@@ -5,6 +5,17 @@ namespace Model
 
 	public class Questions
 	{
+
+		public Questions(DateTime date, string headline, string question, int rating, User user, Category category)
+		{
+			this.Date = date;
+			this.Headline = headline;
+			this.Question = question;
+			this.Rating = rating;
+			this.User = user;
+			this.Category = category;
+		}
+
 		public Questions(DateTime date, string headline, string question, int rating, User user)
 		{
 			this.Date = date;
@@ -41,8 +52,10 @@ namespace Model
 		public string Headline { get; set; }
 		public string Question { get; set; }
 		public int Rating { get; set; }
-		public User? User { get; set; }
+		public User? User { get; set; } = new();
+
 		public Category? Category { get; set; }
+
 
         public List<Answers> Answers { get; set; } = new List<Answers>();
     }

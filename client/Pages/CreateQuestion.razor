@@ -8,38 +8,29 @@
 
 <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"></span>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind-value="questions.User.Name" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
 </div>
 <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"></span>
-    <input type="text" class="form-control" placeholder="Category" aria-label="Category" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind-value="@questions.Category.Name" placeholder="Category" aria-label="Category" aria-describedby="addon-wrapping">
 </div>
 <div class="input-group input-group-lg">
     <span class="input-group-text" id="inputGroup-sizing-lg">Headline</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    <input type="text" @bind-value="@questions.Headline" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 </div>
 <div class="form-floating">
-    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+    <input class="form-control" @bind-value="@questions.Question" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></input>
     <label for="floatingTextarea2">What's your question?</label>
 </div>
 
-<a href="#" onclick="@PostQuestion" class="btn btn-primary">Ask question</a>
+<a href="#" @onclick="PostQuestion" class="btn btn-primary">Ask question</a>
 @code {
 
 
-    private Questions? questions = new();
-    private Category? category;
+    private Questions? questions { get; set; } = new Questions ();
 
-    protected override void OnInitialized()
+    private void PostQuestion()
     {
-        questions.User = new();
-        questions.Category = new();
-    }
-
-    private async void PostQuestion(Questions q)
-    {
-        Questions newQuestion = new(q.Date, q.Headline, q.Question, q.User, q.Category);
-        questionService.PostQuestionData(newQuestion);
-       
+        questionService.PostQuestionData(questions);
     }
 }

@@ -33,7 +33,7 @@ namespace TodoListBlazor.Data
 
         public async void PostQuestionData(Questions data)
         {
-            PostQuestion postQuestion = new(data.Date, data.Headline, data.Question, data.User.Name, data.Category.Name);
+            PostQuestion postQuestion = new(data.Date, data.Headline, data.Question, data.User!.Name, data.Category!.Name);
             string url = $"{baseAPI}question/";
             await http.PostAsJsonAsync(url, postQuestion);
         }
